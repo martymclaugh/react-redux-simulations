@@ -1,0 +1,40 @@
+html, body {
+	background: rgb(245,245,245);
+	font-family: 'Archivo', sans-serif;
+  margin: 0;
+  padding: 0;
+
+}
+
+html, body,
+.chat-app, .chat-room,
+.container {
+  height:100%;
+  min-height:100%;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.regular-button {
+	float: right;
+	width: 200px;
+	margin: 20px 20px 20px 20px;
+	display:block;
+	line-height: 1.5;
+	color: rgb(85,89,92);
+	padding: 8px 12px;
+	font-size: 16px;
+	border-radius: 3px;
+	box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+	cursor: pointer;
+}
+
+.regular-button:hover {
+	background: rgb(245,245,245);
+}
