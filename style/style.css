@@ -7,7 +7,6 @@ html, body {
 }
 
 html, body,
-.chat-app, .chat-room,
 .container {
   height:100%;
   min-height:100%;
