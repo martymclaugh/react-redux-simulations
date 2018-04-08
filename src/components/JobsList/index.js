@@ -19,6 +19,7 @@ class JobsList extends Component {
     };
 
     this.renderJobs = this.renderJobs.bind(this);
+    this.handleCreateJob = this.handleCreateJob.bind(this);
   }
   componentDidMount() {
     this.props.fetchAllJobs();
@@ -32,12 +33,18 @@ class JobsList extends Component {
     if (this.props.jobs) {
       return this.props.jobs.map(job => (
         <div key={job.id} className="job">
-          {job.name}
-          <Link to={{ pathname: `/jobs/${job.id}`}}>Run Job</Link>
+          <div className="job-content">
+            <Link to={{ pathname: `/jobs/${job.id}`}}>See Results</Link>
+            {job.name}
+          </div>
         </div>
       ))
     }
     return null;
+  }
+  handleCreateJob(job){
+    this.toggleForm();
+    this.props.createJob(job);
   }
   render() {
     const { formIsActive } = this.state;
@@ -47,9 +54,10 @@ class JobsList extends Component {
         <h1>All jobs</h1>
         {this.renderJobs()}
         <div
+          className="create-job-button"
           onClick={() => this.toggleForm()}
         >{buttonText}</div>
-        {formIsActive && <JobForm runSimulation={this.props.createJob} />}
+        {formIsActive && <JobForm runSimulation={this.handleCreateJob} />}
       </div>
     )
   }
