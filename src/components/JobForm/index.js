@@ -52,8 +52,7 @@ class JobForm extends Component {
         <div
           key={soft.id}
           onClick={() => this.handleSelectSoftware(soft)}
-          className="software"
-          style={this.state.software === soft ? { backgroundColor: 'red' } : {}}
+          className={`software ${this.state.software === soft ? 'is-selected' : ''}`}
         >
           {soft.label}
         </div>
@@ -67,8 +66,7 @@ class JobForm extends Component {
       <div
         key={app.id}
         onClick={() => this.setState({ application: app })}
-        className="application"
-        style={this.state.application === app ? { backgroundColor: 'green' } : {}}
+        className={`application ${this.state.application === app ? 'is-selected' : ''}`}
       >{app.label}</div>
     ));
 
@@ -95,30 +93,42 @@ class JobForm extends Component {
       hardwareId: hardware.id,
       cores: hardware.max,
     };
+
     this.props.runSimulation(job);
   }
   render() {
     const { software, hardware, application, name } = this.state;
     const submitButton = software && hardware && application && name && (
-      <button onClick={(e) => this.runSimulation(e)}>Run Simulation</button>
+      <button className="simulation-button" onClick={(e) => this.runSimulation(e)}>Run Simulation</button>
+    );
+    const softwareDescription = software && (
+      <div className="software__info">{software.info}</div>
     );
 
     return (
-      <form action=".">
-        <label>Name</label>
-        <input
-          onChange={(e) => this.handleKeyPress(e)}
-          value={this.state.newJobName}
-          type="text"
-        />
-        <label>Hardware</label>
-        <select name="" id="">
-          {this.renderHardware()}
-        </select>
-        <h2>Software</h2>
-        {this.renderSoftware()}
-        <div className="software__info">{software && software.info}</div>
-        {this.renderApplications()}
+      <form className="job-form" action=".">
+        <div className="form__section">
+          <label>Name:</label>
+          <input
+            onChange={(e) => this.handleKeyPress(e)}
+            value={this.state.newJobName}
+            type="text"
+          />
+        </div>
+        <div className="form__section">
+          <label>Hardware:</label>
+          <select name="" id="">
+            {this.renderHardware()}
+          </select>
+        </div>
+        <div className="form__section">
+          <h2>Software:</h2>
+          {this.renderSoftware()}
+          {softwareDescription}
+        </div>
+        <div className="form__section">
+          {this.renderApplications()}
+        </div>
         {submitButton}
       </form>
     )
