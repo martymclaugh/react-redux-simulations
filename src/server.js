@@ -119,9 +119,13 @@ const getHardware = (hardwareId, cores) => {
   if (newHardware === undefined) {
     return {error: `A hardware with id ${hardwareId} does not exist`}
   }
-  const { type } = newHardware;
+  const { id, label } = newHardware;
+
   const hardwareObj = {
-    type,
+    type: {
+      id,
+      label,
+    },
     cores,
   }
   return hardwareObj;
@@ -184,13 +188,13 @@ const getDelay = (hardwareCores) => {
 }
 
 const getNewResults = (softwareId, applicationId, duration) => {
-  const images = results[softwareId][applicationId];
+  const images = results[softwareId][applicationId].images;
   if(images === undefined){
     return {error: `applicationId ${applicationId} does not exist for ${softwareId}`}
   }
   const resultsObject = {
     duration,
-    images
+    images,
   }
   return resultsObject;
 }
@@ -271,12 +275,14 @@ router.route('/create')
       name,
       id: jobId,
       software: {
-        label: software.label,
-        id: software.id,
+        type: {
+          label: software.label,
+          id: software.id,
+        },
         application: application,
       },
       hardware: {
-        type: hardware.type,
+        type: hardware,
         cores: hardware.cores,
       },
       results: results,
