@@ -28,13 +28,15 @@ class Job extends Component {
     ))
   }
   render() {
-    const { label, hardware, software } = this.props.job;
+    const { label, hardware, software, results } = this.props.job;
     if (!label) { return <div>loading...</div>; }
+
     return (
-      <div className="job">
-        <h1 className="job__title">{label}</h1>
-        <div className="job__software">Software Used: {software.type.label}</div>
-        <div className="job__hardware">Hardware Used: {hardware.type.label}</div>
+      <div className="job-screen">
+        <h1 className="job-details job__title"> Results For: {label}</h1>
+        <div className="job-details job__software">Software Used: {software.type.label}</div>
+        <div className="job-details job__hardware">Hardware Used: {hardware.type.label}</div>
+        <div className="job-details job__duration">Duration: {results.duration}</div>
         {this.renderResults()}
       </div>
     )
