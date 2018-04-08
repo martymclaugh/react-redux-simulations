@@ -121,6 +121,7 @@ const getHardware = (hardwareId, cores) => {
   }
   const { id, label } = newHardware;
 
+  const { type } = newHardware;
   const hardwareObj = {
     type: {
       id,
@@ -281,10 +282,7 @@ router.route('/create')
         },
         application: application,
       },
-      hardware: {
-        type: hardware,
-        cores: hardware.cores,
-      },
+      hardware,
       results: results,
     }
     jobs.push(job);
