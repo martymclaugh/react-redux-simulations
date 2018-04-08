@@ -19,7 +19,6 @@ class Job extends Component {
     }
   }
   renderResults() {
-    console.log(this.props);
     const { results } = this.props.job;
 
     return  results.images.map(image => (
